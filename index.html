@@ -81,6 +81,7 @@
     <p class="tagline">Scripture for those who carry the weight.</p>
     <p class="honesty">Every video is free to watch on YouTube. Downloads are for keeping them offline — and for supporting the ministry.</p>
     <p class="ministry">Every download supports the ministry and helps us create more daily encouragement.</p>
+    <p class="ministry"><strong>Watching is always free. Purchasing is completely optional.</strong></p>
   </div>
 </section>
 
@@ -90,6 +91,7 @@
     <div class="step"><span class="num">1</span><p>Watch free on YouTube anytime — every video is always free there.</p></div>
     <div class="step"><span class="num">2</span><p>Pay securely by card (Stripe) when you want a copy to keep.</p></div>
     <div class="step"><span class="num">3</span><p>Your download link appears right after payment — and it's on your Stripe receipt too.</p></div>
+    <div class="step"><span class="num">4</span><p>Save and enjoy offline. MP4 files play on any phone, tablet, or computer. Packs arrive as one ZIP file — open it with your device's Files app.</p></div>
   </div>
 </section>
 
@@ -108,9 +110,22 @@
   <div class="grid" id="singles"></div>
 </section>
 
+<section class="section">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq">
+    <p><strong>Are these videos free on YouTube?</strong><br>Yes. All our Scripture videos remain free to watch on YouTube. Purchasing a download is entirely optional and helps support our ongoing work.</p>
+    <p><strong>What will I receive?</strong><br>Video packs contain individual MP4 videos in one downloadable ZIP file. Compilations are one continuous video. Each product above lists exactly what it includes.</p>
+    <p><strong>Can I watch without internet?</strong><br>Yes. Once downloaded and saved to your device, the MP4 files play offline in any standard video player.</p>
+    <p><strong>Do I need a special app?</strong><br>No. MP4 files play in common video players. ZIP packs may need to be opened first with your device's Files app.</p>
+    <p><strong>What if my download doesn't work?</strong><br>Email <a href="mailto:standfirmdailykjv@gmail.com">standfirmdailykjv@gmail.com</a> and we'll fix it or refund you — no questions. Lost your link? Email us and we'll resend it.</p>
+    <p><strong>Do I have to buy something to support the channel?</strong><br>No. Watching our free videos, and sharing one with someone who needs it, are meaningful ways to support Stand Firm Daily.</p>
+  </div>
+</section>
+
 <section class="promise">
   <h2>Our Promise</h2>
   <p>If a download doesn't work, email us and we'll fix it or refund you — no questions.</p>
+  <p style="margin-top:10px">Downloads are for personal use — please don't resell or redistribute the files.</p>
   <p style="margin-top:10px">Contact: <a href="mailto:standfirmdailykjv@gmail.com">standfirmdailykjv@gmail.com</a></p>
 </section>
 
@@ -158,17 +173,17 @@ const STRIPE_LINKS = {
 const TRUST_LINE = "Secure checkout by Stripe. Your card never touches our site.";
 
 const PACKS = [
-  { key:"sleep-peace-pack", name:"Sleep & Peace Pack", price:"$3.99",
+  { key:"sleep-peace-pack", name:"Sleep & Peace Pack", price:"$3.99", preview:"https://youtube.com/shorts/6mGYJnYLpOg",
     sub:"8 videos · one ZIP download · MP4, yours to keep",
     verses:["Psalm 23:4 — When You're Afraid","Psalm 23:1 — The LORD Is My Shepherd","Matthew 5:4 — God Sees the One Who Is Grieving","Isaiah 49:16 — God Has Not Forgotten You","Psalm 46:10 — When Your Mind Won't Slow Down","Psalm 91:1 — Under the Shadow of the Almighty","John 14:27 — Peace I Leave With You","Isaiah 26:3 — Perfect Peace"] },
-  { key:"strength-pack", name:"Strength Pack", price:"$3.99",
+  { key:"strength-pack", name:"Strength Pack", price:"$3.99", preview:"https://youtube.com/shorts/JN0WeZGAtvc",
     sub:"8 videos · one ZIP download · MP4, yours to keep",
     verses:["Psalm 46:1 — When Life Gets Hard, God Is Your Refuge","Isaiah 41:10 — God Is With You","Deuteronomy 31:8 — God Is Already Ahead of You","Psalm 34:18 — When Your Heart Is Broken, God Is Near","Joshua 1:9 — For the One Who Keeps Going","Deuteronomy 31:6 — God Goes With You","Isaiah 40:31 — Out of Strength?","Psalm 42:11 — When Your Soul Feels Low, Hope in God"] }
 ];
 
 const COMPILATION = [
   { key:"vol1-compilation", name:"Verses for Peace Vol. 1", price:"$1.99",
-    sub:"Compilation · 15 KJV verses · about 8 minutes, narrated",
+    sub:"Compilation · 15 verses · about 8 minutes, narrated",
     verses:["One peaceful sitting of verses for the nights when your mind won't quiet down — Isaiah 26:3, Psalm 121:2, John 10:10, and twelve more, read slowly over calm scenes."] }
 ];
 
@@ -194,13 +209,13 @@ const SINGLES = [
 function buyButton(key, price){
   const link = STRIPE_LINKS[key];
   if (link) return '<a class="buy" href="' + link + '">Buy now — ' + price + '</a><div class="trustline">' + TRUST_LINE + '</div>';
-  return '<span class="buy pending">Available soon — ' + price + '</span><div class="trustline">' + TRUST_LINE + '</div>';
+  return '<span class="buy pending">Coming Soon — Not Yet Available · ' + price + '</span><div class="trustline">' + TRUST_LINE + '</div>';
 }
 
 document.getElementById('packs').innerHTML = PACKS.map(p =>
   '<div class="card"><h3>' + p.name + '</h3><div class="sub">' + p.sub + '</div><ul>' +
   p.verses.map(v => '<li>' + v + '</li>').join('') +
-  '</ul><div class="price">' + p.price + '</div>' + buyButton(p.key, p.price) + '</div>'
+  '</ul><div class="price">' + p.price + '</div>' + buyButton(p.key, p.price) + (p.preview ? '<div class="trustline"><a href="' + p.preview + '" target="_blank" rel="noopener">Watch one free on YouTube first</a></div>' : '') + '</div>'
 ).join('');
 
 document.getElementById('compilation').innerHTML = COMPILATION.map(p =>
